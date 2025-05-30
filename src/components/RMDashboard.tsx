@@ -157,19 +157,19 @@ const RMDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-gray-100 text-gray-800 overflow-hidden">
       {/* Header */}
-      <div className="bg-black/30 backdrop-blur-sm border-b border-blue-500/30 p-4">
-        <h1 className="text-3xl font-bold text-center text-blue-300">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-blue-200 p-4 shadow-sm">
+        <h1 className="text-3xl font-bold text-center text-blue-700">
           📊 RM Performance Dashboard - LIVE
         </h1>
-        <div className="text-center text-sm text-blue-200 mt-1">
+        <div className="text-center text-sm text-blue-600 mt-1">
           Real-time Collections & Outstanding Tracker
         </div>
       </div>
 
       {/* Top Marquee - RM Status */}
-      <div className="bg-blue-950/50 border-b border-blue-500/30">
+      <div className="bg-blue-100/50 border-b border-blue-200">
         <MovingMarquee rmData={rmData} formatCurrency={formatCurrency} />
       </div>
 
@@ -180,20 +180,20 @@ const RMDashboard = () => {
           {rmData.map((rm) => (
             <div
               key={rm.id}
-              className={`bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm rounded-xl p-6 border-2 transition-all duration-300 hover:scale-105 ${
+              className={`bg-white/90 backdrop-blur-sm rounded-xl p-6 border-2 transition-all duration-300 hover:scale-105 shadow-lg ${
                 rm.status === 'green' 
-                  ? 'border-green-500/50 shadow-lg shadow-green-500/20' 
+                  ? 'border-green-400 shadow-green-200' 
                   : rm.status === 'yellow'
-                  ? 'border-yellow-500/50 shadow-lg shadow-yellow-500/20'
-                  : 'border-red-500/50 shadow-lg shadow-red-500/20'
+                  ? 'border-yellow-400 shadow-yellow-200'
+                  : 'border-red-400 shadow-red-200'
               }`}
             >
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-bold text-blue-300">{rm.name}</h3>
+                <h3 className="text-xl font-bold text-gray-800">{rm.name}</h3>
                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  rm.status === 'green' ? 'bg-green-500/20 text-green-300' :
-                  rm.status === 'yellow' ? 'bg-yellow-500/20 text-yellow-300' :
-                  'bg-red-500/20 text-red-300'
+                  rm.status === 'green' ? 'bg-green-100 text-green-700' :
+                  rm.status === 'yellow' ? 'bg-yellow-100 text-yellow-700' :
+                  'bg-red-100 text-red-700'
                 }`}>
                   {rm.achievementPercentage.toFixed(1)}%
                 </span>
@@ -201,26 +201,26 @@ const RMDashboard = () => {
               
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-slate-300">Target:</span>
-                  <span className="font-mono text-blue-300">{formatCurrency(rm.target)}</span>
+                  <span className="text-gray-600">Target:</span>
+                  <span className="font-mono text-blue-700 font-semibold">{formatCurrency(rm.target)}</span>
                 </div>
                 
                 <div className="flex justify-between">
-                  <span className="text-slate-300">Collected:</span>
+                  <span className="text-gray-600">Collected:</span>
                   <CountUp 
                     end={rm.collected} 
                     duration={2}
-                    className="font-mono text-green-400 font-semibold"
+                    className="font-mono text-green-700 font-semibold"
                     formatter={formatCurrency}
                   />
                 </div>
                 
                 <div className="flex justify-between">
-                  <span className="text-slate-300">Outstanding:</span>
+                  <span className="text-gray-600">Outstanding:</span>
                   <CountUp 
                     end={rm.outstanding} 
                     duration={2}
-                    className="font-mono text-red-400 font-semibold"
+                    className="font-mono text-red-700 font-semibold"
                     formatter={formatCurrency}
                   />
                 </div>
@@ -230,7 +230,7 @@ const RMDashboard = () => {
                   status={rm.status}
                 />
                 
-                <div className="text-xs text-slate-400 text-center pt-2">
+                <div className="text-xs text-gray-500 text-center pt-2 bg-gray-50 rounded-md py-1">
                   {rm.category}
                 </div>
               </div>
@@ -239,8 +239,8 @@ const RMDashboard = () => {
         </div>
 
         {/* Leaderboard */}
-        <div className="bg-gradient-to-r from-slate-800/60 to-blue-900/60 backdrop-blur-sm rounded-xl p-6 border border-blue-500/30">
-          <h2 className="text-2xl font-bold text-blue-300 mb-4 text-center">
+        <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-gray-200 shadow-lg">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
             🏆 Top Performers Today
           </h2>
           <div className="space-y-3">
@@ -250,10 +250,10 @@ const RMDashboard = () => {
               .map((rm, index) => (
                 <div
                   key={rm.id}
-                  className={`flex items-center justify-between p-4 rounded-lg ${
-                    index === 0 ? 'bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 border border-yellow-500/30' :
-                    index === 1 ? 'bg-gradient-to-r from-slate-500/20 to-slate-600/20 border border-slate-500/30' :
-                    'bg-gradient-to-r from-amber-600/20 to-amber-700/20 border border-amber-600/30'
+                  className={`flex items-center justify-between p-4 rounded-lg border ${
+                    index === 0 ? 'bg-gradient-to-r from-yellow-50 to-yellow-100 border-yellow-300' :
+                    index === 1 ? 'bg-gradient-to-r from-gray-50 to-gray-100 border-gray-300' :
+                    'bg-gradient-to-r from-orange-50 to-orange-100 border-orange-300'
                   }`}
                 >
                   <div className="flex items-center space-x-4">
@@ -261,15 +261,15 @@ const RMDashboard = () => {
                       {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}
                     </span>
                     <div>
-                      <div className="font-semibold text-blue-200">{rm.name}</div>
-                      <div className="text-sm text-slate-400">{rm.category}</div>
+                      <div className="font-semibold text-gray-800">{rm.name}</div>
+                      <div className="text-sm text-gray-600">{rm.category}</div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-bold text-green-400">
+                    <div className="font-bold text-green-700">
                       {rm.achievementPercentage.toFixed(1)}%
                     </div>
-                    <div className="text-sm text-slate-300">
+                    <div className="text-sm text-gray-600">
                       {formatCurrency(rm.collected)}
                     </div>
                   </div>
@@ -280,7 +280,7 @@ const RMDashboard = () => {
       </div>
 
       {/* Bottom Marquee - Live Updates */}
-      <div className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-sm border-t border-green-500/30">
+      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200 shadow-lg">
         <LiveUpdatesMarquee liveUpdates={liveUpdates} formatCurrency={formatCurrency} />
       </div>
     </div>

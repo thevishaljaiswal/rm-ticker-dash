@@ -10,13 +10,13 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ percentage, status }) 
   const getColorClasses = () => {
     switch (status) {
       case 'green':
-        return 'bg-green-500/30 border-green-500/50';
+        return 'bg-green-100 border-green-300';
       case 'yellow':
-        return 'bg-yellow-500/30 border-yellow-500/50';
+        return 'bg-yellow-100 border-yellow-300';
       case 'red':
-        return 'bg-red-500/30 border-red-500/50';
+        return 'bg-red-100 border-red-300';
       default:
-        return 'bg-slate-500/30 border-slate-500/50';
+        return 'bg-gray-100 border-gray-300';
     }
   };
 
@@ -29,7 +29,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ percentage, status }) 
       case 'red':
         return 'bg-gradient-to-r from-red-500 to-red-400';
       default:
-        return 'bg-gradient-to-r from-slate-500 to-slate-400';
+        return 'bg-gradient-to-r from-gray-500 to-gray-400';
     }
   };
 
@@ -41,7 +41,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ percentage, status }) 
           style={{ width: `${Math.min(percentage, 100)}%` }}
         />
       </div>
-      <div className="text-center text-xs text-slate-400 mt-1">
+      <div className="text-center text-xs text-gray-500 mt-1">
         Achievement Progress
       </div>
     </div>
