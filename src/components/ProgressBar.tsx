@@ -10,38 +10,38 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ percentage, status }) 
   const getColorClasses = () => {
     switch (status) {
       case 'green':
-        return 'bg-green-100 border-green-300';
+        return 'bg-green-50 border-green-200';
       case 'yellow':
-        return 'bg-yellow-100 border-yellow-300';
+        return 'bg-orange-50 border-orange-200';
       case 'red':
-        return 'bg-red-100 border-red-300';
+        return 'bg-red-50 border-red-200';
       default:
-        return 'bg-gray-100 border-gray-300';
+        return 'bg-gray-50 border-gray-200';
     }
   };
 
   const getProgressClasses = () => {
     switch (status) {
       case 'green':
-        return 'bg-gradient-to-r from-green-500 to-green-400';
+        return 'bg-green-500';
       case 'yellow':
-        return 'bg-gradient-to-r from-yellow-500 to-yellow-400';
+        return 'bg-orange-500';
       case 'red':
-        return 'bg-gradient-to-r from-red-500 to-red-400';
+        return 'bg-red-500';
       default:
-        return 'bg-gradient-to-r from-gray-500 to-gray-400';
+        return 'bg-gray-500';
     }
   };
 
   return (
     <div className="w-full">
-      <div className={`w-full h-3 rounded-full border ${getColorClasses()} overflow-hidden`}>
+      <div className={`w-full h-2 rounded border ${getColorClasses()} overflow-hidden`}>
         <div
-          className={`h-full ${getProgressClasses()} transition-all duration-1000 ease-out rounded-full`}
+          className={`h-full ${getProgressClasses()} transition-all duration-1000 ease-out`}
           style={{ width: `${Math.min(percentage, 100)}%` }}
         />
       </div>
-      <div className="text-center text-xs text-gray-500 mt-1">
+      <div className="text-center text-xs text-gray-400 mt-1 font-sans">
         Achievement Progress
       </div>
     </div>

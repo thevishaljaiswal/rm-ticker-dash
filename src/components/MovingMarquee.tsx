@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface RMData {
@@ -18,44 +17,39 @@ interface MovingMarqueeProps {
 }
 
 export const MovingMarquee: React.FC<MovingMarqueeProps> = ({ rmData, formatCurrency }) => {
-  const getStatusIcon = (status: string) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
-      case 'green': return '🟢';
-      case 'yellow': return '🟡';
-      case 'red': return '🔴';
-      default: return '⚪';
+      case 'green': return 'text-green-600';
+      case 'yellow': return 'text-orange-600';
+      case 'red': return 'text-red-600';
+      default: return 'text-gray-600';
     }
   };
 
   const marqueeContent = rmData.map((rm) => (
-    <span key={rm.id} className="inline-flex items-center mx-8 whitespace-nowrap">
-      <span className="mr-2">{getStatusIcon(rm.status)}</span>
-      <span className="font-semibold text-blue-700">{rm.name}</span>
-      <span className="mx-2 text-gray-500">→</span>
-      <span className="text-gray-700">Target:</span>
-      <span className="ml-1 text-blue-700 font-mono">{formatCurrency(rm.target)}</span>
-      <span className="mx-2 text-gray-500">|</span>
-      <span className="text-gray-700">Collected:</span>
-      <span className="ml-1 text-green-700 font-mono font-semibold">{formatCurrency(rm.collected)}</span>
-      <span className="mx-2 text-gray-500">|</span>
-      <span className="text-gray-700">Outstanding:</span>
-      <span className="ml-1 text-red-700 font-mono font-semibold">{formatCurrency(rm.outstanding)}</span>
-      <span className="mx-2 text-gray-500">|</span>
-      <span className={`font-bold ${
-        rm.achievementPercentage >= 90 ? 'text-green-700' :
-        rm.achievementPercentage >= 75 ? 'text-yellow-700' :
-        'text-red-700'
-      }`}>
+    <span key={rm.id} className="inline-flex items-center mx-6 whitespace-nowrap text-xs">
+      <span className="font-semibold text-gray-900 font-sans">{rm.name}</span>
+      <span className="mx-2 text-gray-400">|</span>
+      <span className="text-gray-600 font-sans">Target:</span>
+      <span className="ml-1 text-gray-900 font-mono font-medium">{formatCurrency(rm.target)}</span>
+      <span className="mx-2 text-gray-400">|</span>
+      <span className="text-gray-600 font-sans">Collected:</span>
+      <span className="ml-1 text-green-600 font-mono font-medium">{formatCurrency(rm.collected)}</span>
+      <span className="mx-2 text-gray-400">|</span>
+      <span className="text-gray-600 font-sans">Outstanding:</span>
+      <span className="ml-1 text-red-600 font-mono font-medium">{formatCurrency(rm.outstanding)}</span>
+      <span className="mx-2 text-gray-400">|</span>
+      <span className={`font-bold font-mono ${getStatusColor(rm.status)}`}>
         {rm.achievementPercentage.toFixed(1)}%
       </span>
     </span>
   ));
 
   return (
-    <div className="overflow-hidden bg-gradient-to-r from-blue-50 to-gray-100 py-3">
+    <div className="overflow-hidden bg-gray-50 py-2">
       <div className="animate-marquee whitespace-nowrap flex">
         {marqueeContent}
-        {marqueeContent} {/* Duplicate for seamless loop */}
+        {marqueeContent}
       </div>
     </div>
   );
