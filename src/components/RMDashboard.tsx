@@ -261,65 +261,6 @@ const RMDashboard = () => {
 
       {/* Main Content */}
       <div className="p-4 space-y-4">
-        {/* RM Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-          {rmData.map((rm) => (
-            <div
-              key={rm.id}
-              className="bg-white border border-gray-200 rounded-sm p-4 hover:shadow-sm transition-shadow"
-            >
-              <div className="flex justify-between items-start mb-3">
-                <h3 className="text-sm font-semibold text-gray-900 font-sans">{rm.name}</h3>
-                <span className={`px-2 py-1 rounded text-xs font-mono font-medium ${
-                  rm.status === 'green' ? 'bg-green-50 text-green-700 border border-green-200' :
-                  rm.status === 'yellow' ? 'bg-orange-50 text-orange-700 border border-orange-200' :
-                  'bg-red-50 text-red-700 border border-red-200'
-                }`}>
-                  {rm.achievementPercentage.toFixed(1)}%
-                </span>
-              </div>
-              
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between">
-                  <span className="text-gray-600 font-sans">Target:</span>
-                  <span className="font-mono text-gray-900 font-medium">{formatCurrency(rm.target)}</span>
-                </div>
-                
-                <div className="flex justify-between">
-                  <span className="text-gray-600 font-sans">Collected:</span>
-                  <CountUp 
-                    end={rm.collected} 
-                    duration={2}
-                    className="font-mono text-green-700 font-medium"
-                    formatter={formatCurrency}
-                  />
-                </div>
-                
-                <div className="flex justify-between">
-                  <span className="text-gray-600 font-sans">Outstanding:</span>
-                  <CountUp 
-                    end={rm.outstanding} 
-                    duration={2}
-                    className="font-mono text-red-600 font-medium"
-                    formatter={formatCurrency}
-                  />
-                </div>
-                
-                <div className="mt-3">
-                  <ProgressBar 
-                    percentage={rm.achievementPercentage} 
-                    status={rm.status}
-                  />
-                </div>
-                
-                <div className="text-xs text-gray-500 text-center pt-2 font-sans">
-                  {rm.category}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
         {/* Top Performers Sections - Side by Side */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Onboarding Manager Top Performers */}
@@ -401,44 +342,63 @@ const RMDashboard = () => {
           </div>
         </div>
 
-        {/* Original Leaderboard */}
-        <div className="bg-white border border-gray-200 rounded-sm p-4">
-          <h2 className="text-sm font-semibold text-gray-900 mb-3 font-sans">
-            RM TOP PERFORMERS
-          </h2>
-          <div className="space-y-2">
-            {[...rmData]
-              .sort((a, b) => b.achievementPercentage - a.achievementPercentage)
-              .slice(0, 3)
-              .map((rm, index) => (
-                <div
-                  key={rm.id}
-                  className={`flex items-center justify-between p-3 rounded-sm border text-xs ${
-                    index === 0 ? 'bg-green-50 border-green-200' :
-                    index === 1 ? 'bg-blue-50 border-blue-200' :
-                    'bg-orange-50 border-orange-200'
-                  }`}
-                >
-                  <div className="flex items-center space-x-3">
-                    <span className="text-sm font-mono font-bold">
-                      {index + 1}
-                    </span>
-                    <div>
-                      <div className="font-semibold text-gray-900 font-sans">{rm.name}</div>
-                      <div className="text-gray-600 font-sans">{rm.category}</div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold text-green-700 font-mono">
-                      {rm.achievementPercentage.toFixed(1)}%
-                    </div>
-                    <div className="text-gray-600 font-mono">
-                      {formatCurrency(rm.collected)}
-                    </div>
-                  </div>
+        {/* RM Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+          {rmData.map((rm) => (
+            <div
+              key={rm.id}
+              className="bg-white border border-gray-200 rounded-sm p-4 hover:shadow-sm transition-shadow"
+            >
+              <div className="flex justify-between items-start mb-3">
+                <h3 className="text-sm font-semibold text-gray-900 font-sans">{rm.name}</h3>
+                <span className={`px-2 py-1 rounded text-xs font-mono font-medium ${
+                  rm.status === 'green' ? 'bg-green-50 text-green-700 border border-green-200' :
+                  rm.status === 'yellow' ? 'bg-orange-50 text-orange-700 border border-orange-200' :
+                  'bg-red-50 text-red-700 border border-red-200'
+                }`}>
+                  {rm.achievementPercentage.toFixed(1)}%
+                </span>
+              </div>
+              
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between">
+                  <span className="text-gray-600 font-sans">Target:</span>
+                  <span className="font-mono text-gray-900 font-medium">{formatCurrency(rm.target)}</span>
                 </div>
-              ))}
-          </div>
+                
+                <div className="flex justify-between">
+                  <span className="text-gray-600 font-sans">Collected:</span>
+                  <CountUp 
+                    end={rm.collected} 
+                    duration={2}
+                    className="font-mono text-green-700 font-medium"
+                    formatter={formatCurrency}
+                  />
+                </div>
+                
+                <div className="flex justify-between">
+                  <span className="text-gray-600 font-sans">Outstanding:</span>
+                  <CountUp 
+                    end={rm.outstanding} 
+                    duration={2}
+                    className="font-mono text-red-600 font-medium"
+                    formatter={formatCurrency}
+                  />
+                </div>
+                
+                <div className="mt-3">
+                  <ProgressBar 
+                    percentage={rm.achievementPercentage} 
+                    status={rm.status}
+                  />
+                </div>
+                
+                <div className="text-xs text-gray-500 text-center pt-2 font-sans">
+                  {rm.category}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
