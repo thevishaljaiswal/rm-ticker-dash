@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { MovingMarquee } from './MovingMarquee';
 import { LiveUpdatesMarquee } from './LiveUpdatesMarquee';
@@ -11,6 +10,16 @@ interface RMData {
   target: number;
   collected: number;
   outstanding: number;
+  category: string;
+  achievementPercentage: number;
+  status: 'green' | 'yellow' | 'red';
+}
+
+interface ManagerData {
+  id: string;
+  name: string;
+  target: number;
+  achieved: number;
   category: string;
   achievementPercentage: number;
   status: 'green' | 'yellow' | 'red';
@@ -65,6 +74,66 @@ const RMDashboard = () => {
       outstanding: 2_20_00_000, // 2.2 Cr
       category: 'Business Loan',
       achievementPercentage: 63,
+      status: 'red'
+    }
+  ]);
+
+  const [onboardingManagers, setOnboardingManagers] = useState<ManagerData[]>([
+    {
+      id: '1',
+      name: 'Sarah Chen',
+      target: 150,
+      achieved: 142,
+      category: 'Customer Onboarding',
+      achievementPercentage: 94.7,
+      status: 'green'
+    },
+    {
+      id: '2',
+      name: 'Michael R.',
+      target: 120,
+      achieved: 98,
+      category: 'Document Verification',
+      achievementPercentage: 81.7,
+      status: 'yellow'
+    },
+    {
+      id: '3',
+      name: 'Lisa Wong',
+      target: 180,
+      achieved: 165,
+      category: 'Account Setup',
+      achievementPercentage: 91.7,
+      status: 'green'
+    }
+  ]);
+
+  const [paymentManagers, setPaymentManagers] = useState<ManagerData[]>([
+    {
+      id: '1',
+      name: 'David Kumar',
+      target: 500,
+      achieved: 485,
+      category: 'Payment Processing',
+      achievementPercentage: 97.0,
+      status: 'green'
+    },
+    {
+      id: '2',
+      name: 'Emma Davis',
+      target: 350,
+      achieved: 320,
+      category: 'Payment Support',
+      achievementPercentage: 91.4,
+      status: 'green'
+    },
+    {
+      id: '3',
+      name: 'Alex Thompson',
+      target: 400,
+      achieved: 280,
+      category: 'Transaction Queries',
+      achievementPercentage: 70.0,
       status: 'red'
     }
   ]);
@@ -154,6 +223,10 @@ const RMDashboard = () => {
   const formatCurrency = (amount: number) => {
     const crores = amount / 10_000_000;
     return `₹${crores.toFixed(1)}Cr`;
+  };
+
+  const formatCount = (count: number) => {
+    return count.toString();
   };
 
   return (
@@ -247,10 +320,91 @@ const RMDashboard = () => {
           ))}
         </div>
 
-        {/* Leaderboard */}
+        {/* Top Performers Sections - Side by Side */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {/* Onboarding Manager Top Performers */}
+          <div className="bg-white border border-gray-200 rounded-sm p-4">
+            <h2 className="text-sm font-semibold text-gray-900 mb-3 font-sans">
+              ONBOARDING MANAGER TOP PERFORMERS
+            </h2>
+            <div className="space-y-2">
+              {[...onboardingManagers]
+                .sort((a, b) => b.achievementPercentage - a.achievementPercentage)
+                .map((manager, index) => (
+                  <div
+                    key={manager.id}
+                    className={`flex items-center justify-between p-3 rounded-sm border text-xs ${
+                      index === 0 ? 'bg-green-50 border-green-200' :
+                      index === 1 ? 'bg-blue-50 border-blue-200' :
+                      'bg-orange-50 border-orange-200'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <span className="text-sm font-mono font-bold">
+                        {index + 1}
+                      </span>
+                      <div>
+                        <div className="font-semibold text-gray-900 font-sans">{manager.name}</div>
+                        <div className="text-gray-600 font-sans">{manager.category}</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-green-700 font-mono">
+                        {manager.achievementPercentage.toFixed(1)}%
+                      </div>
+                      <div className="text-gray-600 font-mono">
+                        {manager.achieved}/{manager.target}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+
+          {/* Payment Support Manager Top Performers */}
+          <div className="bg-white border border-gray-200 rounded-sm p-4">
+            <h2 className="text-sm font-semibold text-gray-900 mb-3 font-sans">
+              PAYMENT SUPPORT MANAGER TOP PERFORMERS
+            </h2>
+            <div className="space-y-2">
+              {[...paymentManagers]
+                .sort((a, b) => b.achievementPercentage - a.achievementPercentage)
+                .map((manager, index) => (
+                  <div
+                    key={manager.id}
+                    className={`flex items-center justify-between p-3 rounded-sm border text-xs ${
+                      index === 0 ? 'bg-green-50 border-green-200' :
+                      index === 1 ? 'bg-blue-50 border-blue-200' :
+                      'bg-orange-50 border-orange-200'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <span className="text-sm font-mono font-bold">
+                        {index + 1}
+                      </span>
+                      <div>
+                        <div className="font-semibold text-gray-900 font-sans">{manager.name}</div>
+                        <div className="text-gray-600 font-sans">{manager.category}</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-green-700 font-mono">
+                        {manager.achievementPercentage.toFixed(1)}%
+                      </div>
+                      <div className="text-gray-600 font-mono">
+                        {manager.achieved}/{manager.target}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Original Leaderboard */}
         <div className="bg-white border border-gray-200 rounded-sm p-4">
           <h2 className="text-sm font-semibold text-gray-900 mb-3 font-sans">
-            TOP PERFORMERS
+            RM TOP PERFORMERS
           </h2>
           <div className="space-y-2">
             {[...rmData]
