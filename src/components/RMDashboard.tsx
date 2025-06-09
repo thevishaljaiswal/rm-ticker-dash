@@ -3,6 +3,7 @@ import { MovingMarquee } from './MovingMarquee';
 import { LiveUpdatesMarquee } from './LiveUpdatesMarquee';
 import { ProgressBar } from './ProgressBar';
 import { CountUp } from './CountUp';
+import { CollectionSummary } from './CollectionSummary';
 
 interface RMData {
   id: string;
@@ -165,6 +166,24 @@ const RMDashboard = () => {
     }
   ]);
 
+  // Calculate daily, monthly, and yearly collections
+  const calculateCollectionSummaries = () => {
+    const totalCollected = rmData.reduce((sum, rm) => sum + rm.collected, 0);
+    
+    // For demo purposes, using realistic proportions
+    const dailyCollection = totalCollected * 0.05; // Assume 5% of total is today's collection
+    const monthlyCollection = totalCollected * 0.3; // Assume 30% of total is this month's collection
+    const yearlyCollection = totalCollected; // Total collected this year
+    
+    return {
+      dailyCollection,
+      monthlyCollection,
+      yearlyCollection
+    };
+  };
+
+  const { dailyCollection, monthlyCollection, yearlyCollection } = calculateCollectionSummaries();
+
   // Simulate real-time updates
   useEffect(() => {
     const interval = setInterval(() => {
@@ -261,6 +280,14 @@ const RMDashboard = () => {
 
       {/* Main Content */}
       <div className="p-4 space-y-4">
+        {/* Collection Summary Cards */}
+        <CollectionSummary
+          dailyCollection={dailyCollection}
+          monthlyCollection={monthlyCollection}
+          yearlyCollection={yearlyCollection}
+          formatCurrency={formatCurrency}
+        />
+
         {/* Top Performers Sections - Side by Side */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Onboarding Manager Top Performers */}
